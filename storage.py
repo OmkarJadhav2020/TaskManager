@@ -57,22 +57,23 @@ class Storage:
     def save_tasks(self, tasks):
         """
         Save tasks to JSON file
-        
+
         Args:
             tasks (list): List of tasks to save
         """
         try:
-            # Create directory if it doesn't exist
-            os.makedirs(os.path.dirname(self.filename), exist_ok=True)
-            
-            # Write tasks to file
+            dir_name = os.path.dirname(self.filename)
+            if dir_name:
+                os.makedirs(dir_name, exist_ok=True)
+
             with open(self.filename, 'w') as file:
                 json.dump(tasks, file, indent=2)
-            
+
             return True
         except Exception as e:
             print(f"Error saving tasks: {e}")
             return False
+
     
     def backup_tasks(self):
         """
